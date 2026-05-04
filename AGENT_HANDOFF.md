@@ -47,14 +47,24 @@ That correction reduced approximate inter-segment transition distance from about
 
 Do not treat “block segmentation” as the final route order. Block/side segments are useful as editable units, but route sequencing should optimize how those units connect.
 
-The current preferred heuristic is:
+The current preferred heuristic is a two-level optimizer:
 
 - Keep segments split by street, house-number block, and odd/even side.
-- For initial sequencing, choose the next segment and direction by nearest endpoint.
+- Normalize noisy street names before segmentation, including glued directional suffixes like `AveSE`, direction-before-suffix variants like `SE Ave`, unit labels, and trailing one-character unit markers.
+- For initial sequencing, choose the next segment and direction globally by nearest endpoint, not street-by-street.
+- Add small penalties for leaving the current street/block when distances are close.
+- Add a penalty for entering large loops before nearby short cleanup segments.
 - Allow segments to be reversed automatically.
 - Preserve segment editability in the UI so future saved corrections can reveal new rules.
 
-This means block/side segmentation is a control surface, while endpoint-aware side sweeping is the routing heuristic.
+This means block/side segmentation is a control surface, while global endpoint-aware side sweeping is the routing heuristic.
+
+Latest comparison after the two-level pass:
+
+- `route2.csv`: new initial route matches the corrected run at segment level.
+- `route5.csv`: new initial route matches the corrected run at segment level.
+- `route7.csv`: new initial route matches corrected order/direction and transition distance; one remaining comparison delta appears to be stop-range/metadata-level.
+- `STEP_THE_FUCK_UP__a0OQi000008CvnVMAS.csv`: total inter-segment transition distance improved from about `4373.8m` to `2642.7m` versus `2855.3m` corrected. Segment-order match is still imperfect, likely because the corrected run reflects higher-level corridor preferences beyond nearest endpoints.
 
 ## UI Lessons
 

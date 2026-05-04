@@ -94,7 +94,10 @@ def find_column(df: pd.DataFrame, candidates: Sequence[str], required: bool = Tr
 def canonical_street_name(name: object) -> str:
     text = "" if pd.isna(name) else str(name).strip().lower()
     text = re.sub(r"[#].*$", "", text)
-    text = re.sub(r"\b(apt|unit|suite|ste)\b.*$", "", text)
+    text = re.sub(r"\b(apt|apartment|unit|suite|ste|basm|basement|pole)\b.*$", "", text)
+    text = re.sub(r"\b([a-z]+)(st|ave|rd|dr|ln|ct|pl|ter|cir|blvd|pkwy)(n|s|e|w|ne|nw|se|sw)\b", r"\1 \2 \3", text)
+    text = re.sub(r"\b([a-z]+)\s+(n|s|e|w|ne|nw|se|sw)\s+(street|st|avenue|ave|road|rd|drive|dr|lane|ln|court|ct|place|pl|terrace|ter|circle|cir|boulevard|blvd|parkway|pkwy)\b", r"\1 \3 \2", text)
+    text = re.sub(r"\b(street|st|avenue|ave|road|rd|drive|dr|lane|ln|court|ct|place|pl|terrace|ter|circle|cir|boulevard|blvd|parkway|pkwy)\s+[a-z0-9]\b", r"\1", text)
     text = re.sub(r"[^a-z0-9\s]", " ", text)
     parts = [part for part in text.split() if part]
     cleaned = [
@@ -320,50 +323,53 @@ def _sequence_units_by_endpoint(
     if not units:
         return []
 
-    street_order = []
-    units_by_street: Dict[str, List[CanvassUnit]] = {}
-    for unit in units:
-        if unit.street_key not in units_by_street:
-            street_order.append(unit.street_key)
-            units_by_street[unit.street_key] = []
-        units_by_street[unit.street_key].append(unit)
-
     current_point = _row_point(df, start_row_id) if start_row_id is not None and start_row_id in df.index else None
     sequenced: List[CanvassUnit] = []
     next_sequence = 1
+    remaining = list(units)
+    current_street: Optional[str] = None
+    current_block: Optional[str] = None
 
-    for street_key in street_order:
-        remaining = list(units_by_street[street_key])
-        while remaining:
-            best = None
-            for index, unit in enumerate(remaining):
-                forward_rows = list(unit.row_ids)
-                reverse_rows = list(reversed(unit.row_ids))
-                candidates = [
-                    ("forward", forward_rows, _row_point(df, forward_rows[0]), _row_point(df, forward_rows[-1])),
-                    ("reverse", reverse_rows, _row_point(df, reverse_rows[0]), _row_point(df, reverse_rows[-1])),
-                ]
-                for direction, rows, start_point, end_point in candidates:
-                    distance = _point_distance(current_point, start_point)
-                    tie_breaker = min(float(df.loc[row_id, "house_number"]) for row_id in rows if pd.notna(df.loc[row_id, "house_number"])) if rows else math.inf
-                    candidate = (distance, tie_breaker, index, direction, rows, end_point, unit)
-                    if best is None or candidate[:3] < best[:3]:
-                        best = candidate
+    while remaining:
+        best = None
+        for index, unit in enumerate(remaining):
+            forward_rows = list(unit.row_ids)
+            reverse_rows = list(reversed(unit.row_ids))
+            candidates = [
+                ("forward", forward_rows, _row_point(df, forward_rows[0]), _row_point(df, forward_rows[-1])),
+                ("reverse", reverse_rows, _row_point(df, reverse_rows[0]), _row_point(df, reverse_rows[-1])),
+            ]
+            for direction, rows, start_point, end_point in candidates:
+                distance = _point_distance(current_point, start_point)
+                corridor_penalty = 0.0
+                if current_street is not None and unit.street_key != current_street:
+                    corridor_penalty += 35.0
+                if current_block is not None and unit.block_label != current_block:
+                    corridor_penalty += 8.0
+                if unit.count >= 12:
+                    corridor_penalty += 45.0
+                score = distance + corridor_penalty
+                tie_breaker = min(float(df.loc[row_id, "house_number"]) for row_id in rows if pd.notna(df.loc[row_id, "house_number"])) if rows else math.inf
+                candidate = (score, distance, tie_breaker, index, direction, rows, end_point, unit)
+                if best is None or candidate[:4] < best[:4]:
+                    best = candidate
 
-            if best is None:
-                break
-            _, _, index, direction, rows, end_point, unit = best
-            remaining.pop(index)
-            sequenced.append(
-                replace(
-                    unit,
-                    row_ids=rows,
-                    direction=direction,
-                    default_sequence=next_sequence,
-                )
+        if best is None:
+            break
+        _, _, _, index, direction, rows, end_point, unit = best
+        remaining.pop(index)
+        sequenced.append(
+            replace(
+                unit,
+                row_ids=rows,
+                direction=direction,
+                default_sequence=next_sequence,
             )
-            next_sequence += 1
-            current_point = end_point
+        )
+        next_sequence += 1
+        current_point = end_point
+        current_street = unit.street_key
+        current_block = unit.block_label
 
     return sequenced
 

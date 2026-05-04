@@ -54,6 +54,8 @@ Use `python -m streamlit` so Streamlit runs with the same Python environment whe
 
 The UI and CLI split streets into house-number blocks and odd/even side segments by default. With the default `--block-size 100`, `600 Indian Oaks Dr` and `610 Indian Oaks Dr` are grouped in the `600-699` even-side segment, while `611 Indian Oaks Dr` is in the `600-699` odd-side segment and `720 Indian Oaks Dr` starts the `700-799` even-side segment. Use `--no-block-segments` to restore whole-street blocks, or `--no-side-segments` to keep odd/even sides together within each block.
 
-Initial sequencing uses endpoint-aware side sweeps. The builder keeps block/side segments available for editing, but orders them by nearest endpoint so a route can naturally walk one side across adjacent blocks, cross at an endpoint, and return on the opposite side.
+Initial sequencing uses a two-level optimizer. The builder keeps street/block/side segments available for editing, then globally orders those segments by nearest endpoint so a route can naturally walk one side across adjacent blocks, cross at an endpoint, and return on the opposite side. The scorer includes small penalties for jumping away from the current street/block and for entering large loops before short nearby cleanup segments are handled.
+
+Street names are normalized before segmentation so common CSV variants such as `Boston AveSE`, `Overlook SE Ave`, unit suffixes, and trailing one-character unit markers are less likely to create artificial street groups.
 
 The UI saves learning bundles under `saved_routes/`. Each saved run includes the uploaded CSV, initial ordered output, manually corrected output, segment summaries, change comparison, settings, and notes. Use these saved comparisons to identify recurring manual corrections and improve the initial routing heuristic over time.
