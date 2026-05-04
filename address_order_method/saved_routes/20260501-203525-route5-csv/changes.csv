@@ -1,0 +1,7 @@
+Canvass Unit ID,Street,Block,Side,Initial Order,Corrected Order,Initial Direction,Corrected Direction,Initial Stop Range,Corrected Stop Range,Changes
+glenmore cir::block900-999::sideeven::address_loop,Glenmore Cir,900-999,even,6,10,reverse,reverse,30-38,47-55,"segment_order, stop_range"
+glenmore cir::block900-999::sideodd::address_loop,Glenmore Cir,900-999,odd,5,9,forward,forward,26-29,43-46,"segment_order, stop_range"
+hedrick dr::block1500-1599::sideeven::address_loop,Hedrick Dr,1500-1599,even,8,7,reverse,forward,43-46,35-38,"segment_order, direction, stop_range"
+hedrick dr::block1500-1599::sideodd::address_loop,Hedrick Dr,1500-1599,odd,9,6,forward,reverse,47-50,31-34,"segment_order, direction, stop_range"
+hedrick dr::block1600-1699::sideeven::address_loop,Hedrick Dr,1600-1699,even,7,8,reverse,forward,39-42,39-42,"segment_order, direction"
+hedrick dr::block1600-1699::sideodd::address_loop,Hedrick Dr,1600-1699,odd,10,5,forward,reverse,51-55,26-30,"segment_order, direction, stop_range"

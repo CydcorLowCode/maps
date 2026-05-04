@@ -1,0 +1,55 @@
+Stop #,Name,Note,Street,City,State,Postal Code,Country,Start Time,End Time,Id,Latitude,Longitude
+1,CURRENT RESIDENT |  |  |  |,,1600 Durell Ln,Las Vegas,Nevada,89146-3348,United States,,,0066100000NoDjWAAV,36.1533074,-115.2144587
+2,CURRENT RESIDENT |  |  |  |,,1604 Durell Ln,Las Vegas,Nevada,89146-3348,United States,,,0066100000NoHBmAAN,36.153094,-115.2144355
+3,CURRENT RESIDENT |  |  |  |,,1608 Durell Ln,Las Vegas,Nevada,89146-3348,United States,,,0066100000NoKIeAAN,36.1528995,-115.214505
+4,CURRENT RESIDENT |  |  |  |,,1612 Durell Ln,Las Vegas,Nevada,89146-3348,United States,,,0066100000NoROqAAN,36.1527509,-115.2144587
+5,CURRENT RESIDENT |  |  |  |,,5321 Westleigh Ave,Las Vegas,Nevada,89146-3330,United States,,,0066100000No5UXAAZ,36.1525385,-115.2138103
+6,CURRENT RESIDENT |  |  |  |,,5309 Westleigh Ave,Las Vegas,Nevada,89146-3330,United States,,,0066100000NnzXhAAJ,36.1525103,-115.2131387
+7,CURRENT RESIDENT |  |  |  |,,5305 Westleigh Ave,Las Vegas,Nevada,89146-3330,United States,,,0066100000NnxvDAAR,36.1525475,-115.212884
+8,5304 W Oakey Blvd Las Vegas NV  Resident |  |  |  |,,5304 Oakey Blvd,Las Vegas,Nevada,89146-3349,United States,,,006Nr00000dbO0GIAU,36.152077,-115.212929
+9,5312 W Oakey Blvd Las Vegas NV  Resident |  |  |  |,,5312 Oakey Blvd,Las Vegas,Nevada,89146-3349,United States,,,006Nr00000OY9a4IAD,36.152077,-115.213371
+10,CURRENT RESIDENT |  |  |  |,,5316 W Oakey Blvd,Las Vegas,Nevada,89146-3349,United States,,,0066100000No2TNAAZ,36.1520339,-115.2135787
+11,5320 W Oakey Blvd Las Vegas NV  Resident |  |  |  |,,5320 Oakey Blvd,Las Vegas,Nevada,89146-3349,United States,,,006Nr00000XcgBIIAZ,36.152077,-115.213829
+12,Neal Macintosh |  |  |  |,,5308 W Oakey Blvd,Las Vegas,Nevada,89146-3349,United States,,,0066100000No6itAAB,36.1520493,-115.2140418
+13,CURRENT RESIDENT |  |  |  |,,5200 W Oakey Blvd,Las Vegas,Nevada,89146-3314,United States,,,0066100000NSMQSAA5,36.1520204,-115.2103599
+14,CURRENT RESIDENT |  |  |  |,,5208 W Oakey Blvd,Las Vegas,Nevada,89146-3314,United States,,,0066100000NSQvYAAX,36.1520755,-115.2108231
+15,CURRENT RESIDENT |  |  |  |,,5224 W Oakey Blvd,Las Vegas,Nevada,89146-3314,United States,,,0066100000NSaItAAL,36.1520329,-115.2116335
+16,CURRENT RESIDENT |  |  |  |,,5228 W Oakey Blvd,Las Vegas,Nevada,89146-3314,United States,,,0064N00000YVTLBQA5,36.15208560000001,-115.211842
+17,5232 W Oakey Blvd Las Vegas NV  Resident |  |  |  |,,5232 Oakey Blvd,Las Vegas,Nevada,89146-3314,United States,,,006Qi00000bJF8sIAG,36.152046,-115.212051
+18,Kevin Jones |  |  |  |,,5233 Westleigh Ave,Las Vegas,Nevada,89146-3326,United States,,,0066100000NSdIGAA1,36.1525461,-115.212004
+19,CURRENT RESIDENT |  |  |  |,,5225 Westleigh Ave,Las Vegas,Nevada,89146-3326,United States,,,0066100000NSaL1AAL,36.15251,-115.2116335
+20,CURRENT RESIDENT |  |  |  |,,5221 Westleigh Ave,Las Vegas,Nevada,89146-3326,United States,,,0066100000NSYlRAAX,36.1525221,-115.211402
+21,CURRENT RESIDENT |  |  |  |,,5217 Westleigh Ave,Las Vegas,Nevada,89146-3326,United States,,,0066100000NSVaqAAH,36.1525239,-115.2112167
+22,Maria Jaimes |  |  |  |,,5213 Westleigh Ave,Las Vegas,Nevada,89146-3326,United States,,,0066100000NSUAuAAP,36.152511,-115.2110083
+23,CURRENT RESIDENT |  |  |  |,,5205 Westleigh Ave,Las Vegas,Nevada,89146-3326,United States,,,0066100000NSPHGAA5,36.1525397,-115.2106146
+24,5201 Westleigh Ave Las Vegas NV  Resident |  |  |  |,,5201 Westleigh Ave,Las Vegas,Nevada,89146-3326,United States,,,006Nr00000ZGMXaIAP,36.152527,-115.210442
+25,CURRENT RESIDENT | Re-Loop |  |  | Should be home around 7 PM,,5212 Westleigh Ave,Las Vegas,Nevada,89146-3322,United States,,,0066100000NSU9ZAAX,36.1529734,-115.2109852
+26,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5216 Westleigh Ave,Las Vegas,Nevada,89146-3322,United States,,,0066100000NSVZ8AAP,36.1529392,-115.211182
+27,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5236 Westleigh Ave,Las Vegas,Nevada,89146-3322,United States,,,0066100000NSf8xAAD,36.15295649999999,-115.2122125
+28,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5237 Doe Ave,Las Vegas,Nevada,89146-0303,United States,,,0066100000NSf9DAAT,36.15327449999999,-115.2122125
+29,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5229 Doe Ave,Las Vegas,Nevada,89146-0303,United States,,,0064N00000YVPe4QAH,36.1532635,-115.2118188
+30,Steve Harts | Re-loop: No Answer |  |  |,,5221 Doe Ave,Las Vegas,Nevada,89146-0303,United States,,,0066100000NSYkUAAX,36.1532377,-115.211402
+31,Pam Knobel | Re-loop: No Answer |  |  |,,5120 Doe Ave,Las Vegas,Nevada,89146-3346,United States,,,0066100000NoAJ3AAN,36.15368,-115.209341
+32,CURRENT RESIDENT | Re-loop: No Answer |  |  | Spoke to the wife the husband is the DM. He works from home. Stop,,5132 Doe Ave,Las Vegas,Nevada,89146-3346,United States,,,0066100000NoGBTAA3,36.1536936,-115.2099894
+33,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5204 Doe Ave,Las Vegas,Nevada,89146-0302,United States,,,0066100000NSNt1AAH,36.1537029,-115.2105683
+34,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5208 Doe Ave,Las Vegas,Nevada,89146-0302,United States,,,0066100000NSPIJAA5,36.1537011,-115.2107536
+35,CURRENT RESIDENT | Re-Loop |  |  |,,5212 Doe Ave,Las Vegas,Nevada,89146-0302,United States,,,0066100000O4OTpAAN,36.1537036,-115.2110083
+36,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5228 Doe Ave,Las Vegas,Nevada,89146-0302,United States,,,0066100000NSbhjAAD,36.1537111,-115.2117725
+37,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5209 Del Monte Ave,Las Vegas,Nevada,89146-1413,United States,,,0066100000NSQvwAAH,36.153969,-115.2107999
+38,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5116 Del Monte Ave,Las Vegas,Nevada,89146-1404,United States,,,0064N00000Xxx6eQAB,36.1543576,-115.2091558
+39,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5208 Del Monte Ave,Las Vegas,Nevada,89146-1412,United States,,,0066100000NSPIKAA5,36.1543769,-115.2107536
+40,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5228 Del Monte Ave,Las Vegas,Nevada,89146-1412,United States,,,0066100000NSbhqAAD,36.1544267,-115.2117725
+41,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5221 Mountain View Dr,Las Vegas,Nevada,89146-1422,United States,,,0066100000NSYkwAAH,36.1546791,-115.2113557
+42,5201 Mountain View Dr Las Vegas NV  Resident | Re-loop: No Answer |  |  | DM is not home. Stop by when you see t,,5201 Mountain View Dr,Las Vegas,Nevada,89146-1422,United States,,,006Nr00000XcgiXIAR,36.154667,-115.210381
+43,Chris Guzmon | Re-loop: No Answer |  |  | Spoke to the DM he was having a birthday party stop by another day. Th,,5136 Mountain View Dr,Las Vegas,Nevada,89146-1424,United States,,,0066100000NoHh6AAF,36.155061,-115.210113
+44,CURRENT RESIDENT | Re-Loop |  |  | The works a lot they have Cox standby second car in the driveway,,5236 Mountain View Dr,Las Vegas,Nevada,89146-1421,United States,,,0064N00000XxLUIQA3,36.15507300000001,-115.212169
+45,CURRENT RESIDENT | Re-loop: No Answer |  |  | Spoke to the DM he use his Cox stopped by last loop,,5212 Del Rey Ave,Las Vegas,Nevada,89146-1414,United States,,,0066100000NSSMlAAP,36.1557836,-115.2112167
+46,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5228 Del Rey Ave,Las Vegas,Nevada,89146-1414,United States,,,0066100000NSbhkAAD,36.1557746,-115.212143
+47,CURRENT RESIDENT | Re-Loop |  |  | She uses Cox and pays 85. She doesn’t use a lot of Wi-Fi. She has a toothache,,5124 Longridge Ave,Las Vegas,Nevada,89146-1416,United States,,,0066100000NoBluAAF,36.1565221,-115.2098736
+48,"Bryan Vaca | Priority Re-loop | Priority Re-loop |  | Stop by tomorrow, Friday after 6 PM",,5200 Longridge Ave,Las Vegas,Nevada,89146-1426,United States,,,0066100000NSMPsAAP,36.1565149,-115.2106146
+49,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5212 Longridge Ave,Las Vegas,Nevada,89146-1426,United States,,,0066100000NSSNDAA5,36.1565181,-115.2113093
+50,5304 Westleigh Ave Las Vegas NV  Resident | Re-loop: No Answer |  |  |,,5304 Westleigh Ave,Las Vegas,Nevada,89146-3327,United States,,,006Qi00000ezDqcIAE,36.152973,-115.212906
+51,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5320 Westleigh Ave,Las Vegas,Nevada,89146-3327,United States,,,0066100000No5T3AAJ,36.1529862,-115.213764
+52,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5321 Doe Ave,Las Vegas,Nevada,89146-1309,United States,,,0066100000No5TTAAZ,36.1532247,-115.213764
+53,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,5317 Doe Ave,Las Vegas,Nevada,89146-1309,United States,,,0064N00000YVSg4QAH,36.15327670000001,-115.2135324
+54,5301 Doe Ave Las Vegas NV  Resident | Re-loop: No Answer |  |  |,,5301 Doe Ave,Las Vegas,Nevada,89146-1309,United States,,,006Nr00000NA6IQIA1,36.153236,-115.212692

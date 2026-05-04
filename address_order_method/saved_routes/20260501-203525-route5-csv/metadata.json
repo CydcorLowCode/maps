@@ -1,0 +1,25 @@
+{
+  "run_id": "20260501-203525-route5-csv",
+  "upload_name": "route5.csv",
+  "saved_at": "2026-05-01T20:38:34",
+  "settings": {
+    "min_stops": 45,
+    "max_stops": 75,
+    "target_stops": 60,
+    "first_side": "auto",
+    "street_order": "name",
+    "block_size": 100,
+    "use_block_segments": true,
+    "use_side_segments": true
+  },
+  "notes": "",
+  "summary": {
+    "segment_count": 10,
+    "changed_segment_count": 6,
+    "order_change_count": 6,
+    "direction_change_count": 4,
+    "stop_range_change_count": 5,
+    "initial_stop_count": 55,
+    "corrected_stop_count": 55
+  }
+}

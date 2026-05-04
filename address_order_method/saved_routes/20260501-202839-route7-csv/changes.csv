@@ -1,0 +1,3 @@
+Canvass Unit ID,Street,Block,Side,Initial Order,Corrected Order,Initial Direction,Corrected Direction,Initial Stop Range,Corrected Stop Range,Changes
+espanola way::block600-699::sideodd::address_loop,Espanola Way,600-699,odd,3,4,reverse,reverse,9-12,17-20,"segment_order, stop_range"
+norman dr::block1600-1699::sideodd::address_loop,Norman Dr,1600-1699,odd,4,3,reverse,forward,13-20,9-16,"segment_order, direction, stop_range"

@@ -1,0 +1,8 @@
+Canvass Unit ID,Segment Order,Route #,Route Segment #,Route Stop Range,Street Key,Street Display,Address Block,Street Side,Stop Count,Segment Color,Segment First Side,Segment Direction,Start Address,End Address
+lund cir::block600-699::sideeven::address_loop,1,1,1,1-6,lund cir,Lund Cir,600-699,even,6,#1f77b4,even,forward,632 Lund Cir,620 Lund Cir
+lund cir::block600-699::sideodd::address_loop,2,1,2,7-8,lund cir,Lund Cir,600-699,odd,2,#ff7f0e,odd,forward,625 Lund Cir,627 Lund Cir
+espanola way::block600-699::sideodd::address_loop,3,1,3,9-12,espanola way,Espanola Way,600-699,odd,4,#2ca02c,odd,reverse,647 Espanola Way,623 Espanola Way
+norman dr::block1600-1699::sideodd::address_loop,4,1,4,13-20,norman dr,Norman Dr,1600-1699,odd,8,#d62728,odd,reverse,1625 Norman Dr,1601 Norman Dr
+patrick cir::block300-399::sideeven::address_loop,5,1,5,21-38,patrick cir,Patrick Cir,300-399,even,18,#9467bd,even,reverse,360 Patrick Cir,300 Patrick Cir
+vesta cir::block300-399::sideodd::address_loop,6,1,6,39-61,vesta cir,Vesta Cir,300-399,odd,23,#8c564b,odd,forward,307 Vesta Cir,359 Vesta Cir
+vesta cir::block300-399::sideeven::address_loop,7,1,7,62-78,vesta cir,Vesta Cir,300-399,even,17,#e377c2,even,reverse,360 Vesta Cir,308 Vesta Cir

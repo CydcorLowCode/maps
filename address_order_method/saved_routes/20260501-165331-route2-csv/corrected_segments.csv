@@ -1,0 +1,12 @@
+Canvass Unit ID,Segment Order,Route #,Route Segment #,Route Stop Range,Street Key,Street Display,Address Block,Street Side,Stop Count,Segment Color,Segment First Side,Segment Direction,Start Address,End Address
+indian oaks dr::block600-699::sideeven::address_loop,1,1,1,1-2,indian oaks dr,Indian Oaks Dr,600-699,even,2,#1f77b4,even,forward,600 Indian Oaks Dr,610 Indian Oaks Dr
+indian oaks dr::block600-699::sideodd::address_loop,2,1,2,3-11,indian oaks dr,Indian Oaks Dr,600-699,odd,9,#ff7f0e,odd,forward,611 Indian Oaks Dr,691 Indian Oaks Dr
+indian oaks dr::block700-799::sideodd::address_loop,3,1,3,12-20,indian oaks dr,Indian Oaks Dr,700-799,odd,9,#2ca02c,odd,forward,701 Indian Oaks Dr,781 Indian Oaks Dr
+indian oaks dr::block800-899::sideodd::address_loop,4,1,4,21-30,indian oaks dr,Indian Oaks Dr,800-899,odd,10,#d62728,odd,forward,801 Indian Oaks Dr,891 Indian Oaks Dr
+indian oaks dr::block900-999::sideodd::address_loop,5,1,5,31,indian oaks dr,Indian Oaks Dr,900-999,odd,1,#9467bd,odd,forward,901 Indian Oaks Dr,901 Indian Oaks Dr
+indian oaks dr::block800-899::sideeven::address_loop,6,1,6,32-39,indian oaks dr,Indian Oaks Dr,800-899,even,8,#8c564b,even,reverse,870 Indian Oaks Dr,800 Indian Oaks Dr
+indian oaks dr::block700-799::sideeven::address_loop,7,1,7,40-45,indian oaks dr,Indian Oaks Dr,700-799,even,6,#e377c2,even,reverse,790 Indian Oaks Dr,720 Indian Oaks Dr
+osceola dr::block3600-3699::sideodd::address_loop,8,1,8,46-51,osceola dr,Osceola Dr,3600-3699,odd,6,#17becf,odd,reverse,3653 Osceola Dr,3603 Osceola Dr
+osceola dr::block3500-3599::sideodd::address_loop,9,1,9,52-59,osceola dr,Osceola Dr,3500-3599,odd,8,#bcbd22,odd,reverse,3593 Osceola Dr,3513 Osceola Dr
+osceola dr::block3500-3599::sideeven::address_loop,10,1,10,60-66,osceola dr,Osceola Dr,3500-3599,even,7,#393b79,even,forward,3522 Osceola Dr,3582 Osceola Dr
+osceola dr::block3600-3699::sideeven::address_loop,11,1,11,67-68,osceola dr,Osceola Dr,3600-3699,even,2,#637939,even,forward,3612 Osceola Dr,3622 Osceola Dr

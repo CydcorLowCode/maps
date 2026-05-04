@@ -1,0 +1,10 @@
+Canvass Unit ID,Street,Block,Side,Initial Order,Corrected Order,Initial Direction,Corrected Direction,Initial Stop Range,Corrected Stop Range,Changes
+indian oaks dr::block700-799::sideeven::address_loop,Indian Oaks Dr,700-799,even,3,7,forward,reverse,12-17,40-45,"segment_order, direction, stop_range"
+indian oaks dr::block700-799::sideodd::address_loop,Indian Oaks Dr,700-799,odd,4,3,forward,forward,18-26,12-20,"segment_order, stop_range"
+indian oaks dr::block800-899::sideeven::address_loop,Indian Oaks Dr,800-899,even,5,6,forward,reverse,27-34,32-39,"segment_order, direction, stop_range"
+indian oaks dr::block800-899::sideodd::address_loop,Indian Oaks Dr,800-899,odd,6,4,forward,forward,35-44,21-30,"segment_order, stop_range"
+indian oaks dr::block900-999::sideodd::address_loop,Indian Oaks Dr,900-999,odd,7,5,forward,forward,45,31,"segment_order, stop_range"
+osceola dr::block3500-3599::sideeven::address_loop,Osceola Dr,3500-3599,even,8,10,forward,forward,46-52,60-66,"segment_order, stop_range"
+osceola dr::block3500-3599::sideodd::address_loop,Osceola Dr,3500-3599,odd,9,9,forward,reverse,53-60,52-59,"direction, stop_range"
+osceola dr::block3600-3699::sideeven::address_loop,Osceola Dr,3600-3699,even,10,11,forward,forward,61-62,67-68,"segment_order, stop_range"
+osceola dr::block3600-3699::sideodd::address_loop,Osceola Dr,3600-3699,odd,11,8,forward,reverse,63-68,46-51,"segment_order, direction, stop_range"

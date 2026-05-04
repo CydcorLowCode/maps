@@ -1,0 +1,41 @@
+Canvass Unit ID,Segment Order,Route #,Route Segment #,Route Stop Range,Street Key,Street Display,Address Block,Street Side,Stop Count,Segment Color,Segment First Side,Segment Direction,Start Address,End Address
+boston avese::block3700-3799::sideodd::address_loop,1,1,1,1-5,boston avese,Boston AveSE,3700-3799,odd,5,#1f77b4,odd,forward,3765 Boston AveSE,3701 Boston AveSE
+boston avese::block3600-3699::sideodd::address_loop,2,1,2,6-8,boston avese,Boston AveSE,3600-3699,odd,3,#ff7f0e,odd,reverse,3669 Boston AveSE,3637 Boston AveSE
+boston avese::block3600-3699::sideeven::address_loop,3,1,3,9-10,boston avese,Boston AveSE,3600-3699,even,2,#2ca02c,even,reverse,3636 Boston AveSE,3620 Boston AveSE
+boston avese::block3500-3599::sideeven::address_loop,4,1,4,11,boston avese,Boston AveSE,3500-3599,even,1,#d62728,even,forward,3584 Boston AveSE,3584 Boston AveSE
+boston avese::block3500-3599::sideodd::address_loop,5,1,5,12-13,boston avese,Boston AveSE,3500-3599,odd,2,#9467bd,odd,reverse,3589 Boston AveSE,3571 Boston AveSE
+boston avese::block3800-3899::sideodd::address_loop,6,1,6,14,boston avese,Boston AveSE,3800-3899,odd,1,#8c564b,odd,forward,3831 Boston AveSE,3831 Boston AveSE
+boston avese::block3900-3999::sideodd::address_loop,7,1,7,15-16,boston avese,Boston AveSE,3900-3999,odd,2,#e377c2,odd,forward,3917 Boston AveSE,3929 Boston AveSE
+boston ave::block3600-3699::sideeven::address_loop,8,1,8,17,boston ave,Boston Ave,3600-3699,even,1,#17becf,even,forward,3646 Boston Ave,3646 Boston Ave
+boston ave a::block3600-3699::sideodd::address_loop,9,1,9,18,boston ave a,Boston Ave  A,3600-3699,odd,1,#bcbd22,odd,forward,3685 Boston Ave  A,3685 Boston Ave  A
+curtis avese::block3500-3599::sideodd::address_loop,10,1,10,19,curtis avese,Curtis AveSE,3500-3599,odd,1,#393b79,odd,forward,3533 Curtis AveSE,3533 Curtis AveSE
+curtis avese::block3500-3599::sideeven::address_loop,11,1,11,20,curtis avese,Curtis AveSE,3500-3599,even,1,#637939,even,forward,3532 Curtis AveSE,3532 Curtis AveSE
+deforest rd::block1300-1399::sideeven::address_loop,12,1,12,21,deforest rd,Deforest Rd,1300-1399,even,1,#8c6d31,even,forward,1348 Deforest Rd,1348 Deforest Rd
+deforest rd::block1200-1299::sideeven::address_loop,13,1,13,22,deforest rd,Deforest Rd,1200-1299,even,1,#843c39,even,forward,1286 Deforest Rd,1286 Deforest Rd
+deforest rd pole::block1300-1399::sideeven::address_loop,14,1,14,23,deforest rd pole,Deforest Rd  Pole,1300-1399,even,1,#7b4173,even,forward,1336 Deforest Rd  Pole,1336 Deforest Rd  Pole
+deforest rdse::block1300-1399::sideeven::address_loop,15,1,15,24-34,deforest rdse,Deforest RdSE,1300-1399,even,11,#3182bd,even,forward,1300 Deforest RdSE,1398 Deforest RdSE
+deforest rdse::block1300-1399::sideodd::address_loop,16,1,16,35-40,deforest rdse,Deforest RdSE,1300-1399,odd,6,#e6550d,odd,reverse,1399 Deforest RdSE,1301 Deforest RdSE
+deforest rdse::block1200-1299::sideeven::address_loop,17,1,17,41,deforest rdse,Deforest RdSE,1200-1299,even,1,#31a354,even,forward,1282 Deforest RdSE,1282 Deforest RdSE
+evergreen ave::block3700-3799::sideodd::address_loop,18,1,18,42,evergreen ave,Evergreen Ave,3700-3799,odd,1,#756bb1,odd,forward,3751 Evergreen Ave,3751 Evergreen Ave
+evergreen ave::block3500-3599::sideeven::address_loop,19,1,19,43,evergreen ave,Evergreen Ave,3500-3599,even,1,#636363,even,forward,3544 Evergreen Ave,3544 Evergreen Ave
+evergreen se ave::block3500-3599::sideodd::address_loop,20,1,20,44,evergreen se ave,Evergreen SE Ave,3500-3599,odd,1,#9edae5,odd,forward,3545 Evergreen SE Ave,3545 Evergreen SE Ave
+evergreen se ave::block3700-3799::sideodd::address_loop,21,1,21,45,evergreen se ave,Evergreen SE Ave,3700-3799,odd,1,#1f77b4,odd,forward,3727 Evergreen SE Ave,3727 Evergreen SE Ave
+overlook ave::block3400-3499::sideodd::address_loop,22,1,22,46,overlook ave,Overlook Ave,3400-3499,odd,1,#ff7f0e,odd,forward,3479 Overlook Ave,3479 Overlook Ave
+overlook ave::block3500-3599::sideodd::address_loop,23,1,23,47,overlook ave,Overlook Ave,3500-3599,odd,1,#2ca02c,odd,forward,3503 Overlook Ave,3503 Overlook Ave
+overlook avese::block3500-3599::sideeven::address_loop,24,1,24,48-49,overlook avese,Overlook AveSE,3500-3599,even,2,#d62728,even,forward,3514 Overlook AveSE,3524 Overlook AveSE
+overlook avese::block3400-3499::sideodd::address_loop,25,1,25,50-51,overlook avese,Overlook AveSE,3400-3499,odd,2,#9467bd,odd,reverse,3467 Overlook AveSE,3455 Overlook AveSE
+overlook avese::block3400-3499::sideeven::address_loop,26,1,26,52,overlook avese,Overlook AveSE,3400-3499,even,1,#8c564b,even,forward,3430 Overlook AveSE,3430 Overlook AveSE
+overlook se ave::block3400-3499::sideeven::address_loop,27,1,27,53,overlook se ave,Overlook SE Ave,3400-3499,even,1,#e377c2,even,forward,3410 Overlook SE Ave,3410 Overlook SE Ave
+ridgelawn ave::block3500-3599::sideodd::address_loop,28,1,28,54,ridgelawn ave,Ridgelawn Ave Apt Basm,3500-3599,odd,1,#17becf,odd,forward,3591 Ridgelawn Ave Apt Basm,3591 Ridgelawn Ave Apt Basm
+ridgelawn ave::block3500-3599::sideeven::address_loop,29,1,29,55,ridgelawn ave,Ridgelawn Ave,3500-3599,even,1,#bcbd22,even,forward,3556 Ridgelawn Ave,3556 Ridgelawn Ave
+ridgelawn avese::block3500-3599::sideodd::address_loop,30,1,30,56-57,ridgelawn avese,Ridgelawn AveSE,3500-3599,odd,2,#393b79,odd,forward,3569 Ridgelawn AveSE,3579 Ridgelawn AveSE
+ridgelawn avese::block3600-3699::sideodd::address_loop,31,1,31,58-59,ridgelawn avese,Ridgelawn AveSE,3600-3699,odd,2,#637939,odd,forward,3613 Ridgelawn AveSE,3635 Ridgelawn AveSE
+ridgelawn avese::block3600-3699::sideeven::address_loop,32,1,32,60,ridgelawn avese,Ridgelawn AveSE,3600-3699,even,1,#8c6d31,even,forward,3600 Ridgelawn AveSE,3600 Ridgelawn AveSE
+ridgelawn se ave::block3500-3599::sideeven::address_loop,33,1,33,61,ridgelawn se ave,Ridgelawn SE Ave,3500-3599,even,1,#843c39,even,forward,3530 Ridgelawn SE Ave,3530 Ridgelawn SE Ave
+ridgelawn se ave::block3500-3599::sideodd::address_loop,34,1,34,62,ridgelawn se ave,Ridgelawn SE Ave,3500-3599,odd,1,#7b4173,odd,forward,3519 Ridgelawn SE Ave,3519 Ridgelawn SE Ave
+woodbine ave::block3500-3599::sideeven::address_loop,35,1,35,63,woodbine ave,Woodbine Ave,3500-3599,even,1,#3182bd,even,forward,3588 Woodbine Ave,3588 Woodbine Ave
+woodbine ave 1::block3500-3599::sideeven::address_loop,36,1,36,64,woodbine ave 1,Woodbine Ave  1,3500-3599,even,1,#e6550d,even,forward,3560 Woodbine Ave  1,3560 Woodbine Ave  1
+woodbine avese::block3500-3599::sideodd::address_loop,37,1,37,65-67,woodbine avese,Woodbine AveSE,3500-3599,odd,3,#31a354,odd,forward,3579 Woodbine AveSE,3591 Woodbine AveSE
+woodbine avese::block3500-3599::sideeven::address_loop,38,1,38,68,woodbine avese,Woodbine AveSE,3500-3599,even,1,#756bb1,even,forward,3594 Woodbine AveSE,3594 Woodbine AveSE
+woodbine avese::block3400-3499::sideodd::address_loop,39,1,39,69,woodbine avese,Woodbine AveSE,3400-3499,odd,1,#636363,odd,forward,3499 Woodbine AveSE,3499 Woodbine AveSE
+woodbine avese::block3400-3499::sideeven::address_loop,40,1,40,70,woodbine avese,Woodbine AveSE,3400-3499,even,1,#9edae5,even,forward,3494 Woodbine AveSE,3494 Woodbine AveSE

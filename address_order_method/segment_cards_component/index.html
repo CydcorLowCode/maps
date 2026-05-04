@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 0 2px 12px;
+        background: transparent;
+      }
+
+      .segment-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .segment-card {
+        border: 3px solid transparent;
+        border-radius: 12px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.14);
+        cursor: grab;
+        padding: 12px;
+        user-select: none;
+      }
+
+      .segment-card.dragging {
+        cursor: grabbing;
+        opacity: 0.55;
+      }
+
+      .segment-card.selected {
+        background: #fff !important;
+        border-color: #111 !important;
+        color: #111 !important;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18);
+      }
+
+      .segment-title {
+        font-size: 15px;
+        font-weight: 800;
+        line-height: 1.25;
+        margin-bottom: 4px;
+      }
+
+      .segment-meta {
+        font-size: 13px;
+        font-weight: 650;
+        line-height: 1.35;
+        opacity: 0.95;
+      }
+
+      .direction-row {
+        align-items: center;
+        display: grid;
+        gap: 8px;
+        grid-template-columns: auto 1fr;
+        margin-top: 10px;
+      }
+
+      .direction-label {
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      select {
+        appearance: none;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        color: #111;
+        font-size: 14px;
+        font-weight: 650;
+        padding: 8px 10px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="segment-list" class="segment-list"></div>
+
+    <script>
+      const Streamlit = {
+        RENDER_EVENT: "streamlit:render",
+        events: new EventTarget(),
+        setComponentReady() {
+          window.addEventListener("message", (event) => {
+            if (event.data.type !== Streamlit.RENDER_EVENT) return;
+            Streamlit.events.dispatchEvent(
+              new CustomEvent(Streamlit.RENDER_EVENT, {
+                detail: {
+                  args: event.data.args || {},
+                  disabled: Boolean(event.data.disabled),
+                  theme: event.data.theme,
+                },
+              })
+            );
+          });
+          window.parent.postMessage(
+            {
+              isStreamlitMessage: true,
+              type: "streamlit:componentReady",
+              apiVersion: 1,
+            },
+            "*"
+          );
+        },
+        setComponentValue(value) {
+          window.parent.postMessage(
+            {
+              isStreamlitMessage: true,
+              type: "streamlit:setComponentValue",
+              value,
+              dataType: "json",
+            },
+            "*"
+          );
+        },
+        setFrameHeight(height) {
+          window.parent.postMessage(
+            {
+              isStreamlitMessage: true,
+              type: "streamlit:setFrameHeight",
+              height: height || document.body.scrollHeight,
+            },
+            "*"
+          );
+        },
+      };
+
+      const list = document.getElementById("segment-list");
+      let segments = [];
+      let draggedId = null;
+
+      function textColorForBackground(hexColor) {
+        const color = String(hexColor || "").replace("#", "");
+        if (color.length !== 6) return "#111";
+        const red = parseInt(color.slice(0, 2), 16);
+        const green = parseInt(color.slice(2, 4), 16);
+        const blue = parseInt(color.slice(4, 6), 16);
+        if ([red, green, blue].some(Number.isNaN)) return "#111";
+        const luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
+        return luminance > 0.62 ? "#111" : "#fff";
+      }
+
+      function emitChange() {
+        const cards = [...list.querySelectorAll(".segment-card")];
+        const value = cards.map((card, index) => ({
+          id: card.dataset.segmentId,
+          order: index + 1,
+          direction: card.querySelector("select").value,
+        }));
+        Streamlit.setComponentValue(value);
+      }
+
+      function resizeFrame() {
+        Streamlit.setFrameHeight(document.body.scrollHeight + 12);
+      }
+
+      function render() {
+        list.innerHTML = "";
+        segments.forEach((segment) => {
+          const card = document.createElement("div");
+          const isSelected = segment.id === segment.selectedSegmentId;
+          const color = segment.color || "#999";
+          card.className = "segment-card" + (isSelected ? " selected" : "");
+          card.dataset.segmentId = segment.id;
+          card.draggable = true;
+          card.style.background = isSelected ? "#fff" : color;
+          card.style.borderColor = isSelected ? "#111" : color;
+          card.style.color = isSelected ? "#111" : textColorForBackground(color);
+
+          card.innerHTML = `
+            <div class="segment-title">Stops ${segment.stopRange}: ${segment.street}</div>
+            <div class="segment-meta">Block ${segment.block} | ${segment.side} side | ${segment.stopCount} stops</div>
+            <div class="direction-row">
+              <div class="direction-label">Direction</div>
+              <select aria-label="Segment direction">
+                <option value="forward"${segment.direction === "forward" ? " selected" : ""}>Forward</option>
+                <option value="reverse"${segment.direction === "reverse" ? " selected" : ""}>Reverse</option>
+              </select>
+            </div>
+          `;
+
+          card.addEventListener("dragstart", () => {
+            draggedId = segment.id;
+            card.classList.add("dragging");
+          });
+          card.addEventListener("dragend", () => {
+            draggedId = null;
+            card.classList.remove("dragging");
+            emitChange();
+          });
+          card.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            const dragging = list.querySelector(".dragging");
+            if (!dragging || dragging === card) return;
+            const rect = card.getBoundingClientRect();
+            const afterCard = event.clientY > rect.top + rect.height / 2;
+            list.insertBefore(dragging, afterCard ? card.nextSibling : card);
+          });
+          card.querySelector("select").addEventListener("change", emitChange);
+          list.appendChild(card);
+        });
+        resizeFrame();
+      }
+
+      Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, (event) => {
+        const args = event.detail.args;
+        segments = args.segments || [];
+        render();
+      });
+
+      Streamlit.setComponentReady();
+      resizeFrame();
+    </script>
+  </body>
+</html>

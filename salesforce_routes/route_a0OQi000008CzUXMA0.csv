@@ -1,0 +1,60 @@
+Stop #,Name,Note,Street,City,State,Postal Code,Country,Start Time,End Time,Id,Latitude,Longitude
+1,Frank Fernandez |  |  |  |,,4000 El Camino Ave,Las Vegas,Nevada,89102-3626,United States,,,0066100000NoIrPAAV,36.1467427,-115.1942655
+2,Daniel Carmen |  |  |  |,,4008 El Camino Ave,LAS VEGAS,Nevada,89102-3626,United States,,,0064N00000j8mPDQAY,36.146751,-115.194756
+3,CURRENT RESIDENT |  |  |  |,,4104 El Camino Ave,Las Vegas,Nevada,89102-3739,United States,,,0066100000NSc9iAAD,36.146969,-115.1955623
+4,Gavino Munoz |  |  |  |,,4108 El Camino Ave,Las Vegas,Nevada,89102-3739,United States,,,0066100000NSe19AAD,36.1470865,-115.1957476
+5,CURRENT RESIDENT |  |  |  |,,4116 El Camino Ave,Las Vegas,Nevada,89102-3739,United States,,,0066100000NShVkAAL,36.1472714,-115.1961645
+6,CURRENT RESIDENT |  |  |  |,,4120 El Camino Ave,Las Vegas,Nevada,89102-3739,United States,,,0066100000NSj8IAAT,36.1473388,-115.196396
+7,CURRENT RESIDENT |  |  |  |,,2107 Linda Vista St,Las Vegas,Nevada,89102-3721,United States,,,0066100000NSe9dAAD,36.1478159,-115.196396
+8,CURRENT RESIDENT |  |  |  |,,4204 El Pasada Ave,Las Vegas,Nevada,89102-3753,United States,,,0066100000No8AcAAJ,36.1482115,-115.1976466
+9,CURRENT RESIDENT |  |  |  |,,4212 El Pasada Ave,Las Vegas,Nevada,89102-3753,United States,,,0066100000NoBT3AAN,36.1481829,-115.1980402
+10,CURRENT RESIDENT |  |  |  |,,4312 El Pasada Ave,LAS VEGAS,Nevada,89102-3784,United States,,,0064N00000kh4dVQAQ,36.148201,-115.198982
+11,CURRENT RESIDENT |  |  |  |,,4316 El Pasada Ave,Las Vegas,Nevada,89102-3784,United States,,,0066100000NSOKzAAP,36.1481663,-115.1992676
+12,Carlos Tellez |  |  |  |,,2108 Juana Vista St,Las Vegas,Nevada,89102-3731,United States,,,006Nr00000TzJjzIAF,36.147629,-115.199539
+13,2109 Juana Vista St Las Vegas NV  Resident |  |  |  |,,2109 Juana Vista St,Las Vegas,Nevada,89102-3732,United States,,,006Nr00000ZGPBzIAP,36.147617,-115.198921
+14,CURRENT RESIDENT |  |  |  |,,2105 Juana Vista St,Las Vegas,Nevada,89102-3732,United States,,,0066100000O4BnBAAV,36.1477722,-115.1988971
+15,CURRENT RESIDENT |  |  |  |,,4309 El Pasada Ave,Las Vegas,Nevada,89102-3785,United States,,,0064N00000YVUzsQAH,36.1477152,-115.1986192
+16,Daniel Ramirez |  |  |  |,,4213 El Pasada Ave,Las Vegas,Nevada,89102-3754,United States,,,0066100000NoCwiAAF,36.14773090000001,-115.1980171
+17,CURRENT RESIDENT |  |  |  |,,4209 El Pasada Ave,Las Vegas,Nevada,89102-3754,United States,,,0064N00000du5bmQAA,36.1477033,-115.1977855
+18,CURRENT RESIDENT |  |  |  |,,4207 El Pasada Ave,Las Vegas,Nevada,89102-3754,United States,,,0066100000No9lzAAB,36.1477154,-115.1975539
+19,CURRENT RESIDENT |  |  |  |,,4205 El Pasada Ave,Las Vegas,Nevada,89102-3754,United States,,,0066100000No8BlAAJ,36.1477172,-115.1973687
+20,CURRENT RESIDENT |  |  |  |,,4201 El Pasada Ave,Las Vegas,Nevada,89102-3754,United States,,,0066100000No5iuAAB,36.1477397,-115.1970908
+21,CURRENT RESIDENT |  |  |  |,,4204 El Camino Ave,Las Vegas,Nevada,89102-3741,United States,,,0064N00000du82hQAA,36.147489,-115.1973223
+22,4212 El Camino Ave Las Vegas NV  Resident |  |  |  |,,4212 El Camino Ave,Las Vegas,Nevada,89102-3741,United States,,,006Nr00000ZGP3cIAH,36.147495,-115.197777
+23,CURRENT RESIDENT |  |  |  |,,4216 El Camino Ave,Las Vegas,Nevada,89102-3741,United States,,,0066100000NoCyWAAV,36.1474923,-115.1980171
+24,4300 El Camino Ave Las Vegas NV  Resident |  |  |  |,,4300 El Camino Ave,Las Vegas,Nevada,89102-3623,United States,,,006Qi00000djIorIAE,36.147491,-115.198212
+25,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,2204 Juana Vista St,Las Vegas,Nevada,89102-3706,United States,,,0066100000O4Kq0AAF,36.1468965,-115.1995223
+26,2208 Juana Vista St Las Vegas NV  Resident | Re-loop: No Answer |  |  |,,2208 Juana Vista St,Las Vegas,Nevada,89102-3706,United States,,,006Nr00000JLyWnIAL,36.146729,-115.199516
+27,CURRENT RESIDENT | Re-loop: No Answer |  |  | Spoke to junior look for a grey explorer. Uses cox pays $60 for a,,4320 Via Vaquero Ave,Las Vegas,Nevada,89102-3768,United States,,,0066100000NSRVUAA5,36.1453366,-115.1989434
+28,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4301 Esmeralda Ave,Las Vegas,Nevada,89102-3765,United States,,,0066100000OLPX4AAP,36.1455753,-115.1978781
+29,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4213 Esmeralda Ave,Las Vegas,Nevada,89102-3764,United States,,,0066100000OLLFkAAP,36.1455512,-115.197276
+30,4021 Esmeralda Ave Las Vegas NV  Resident | Re-loop: No Answer |  |  |,,4021 Esmeralda Ave,Las Vegas,Nevada,89102-3702,United States,,,006Nr00000ZGP3hIAH,36.145573,-115.195381
+31,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4016 Esmeralda Ave,Las Vegas,Nevada,89102-3703,United States,,,0066100000NoQF4AAN,36.1460286,-115.1951455
+32,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4300 Esmeralda Ave,Las Vegas,Nevada,89102-3600,United States,,,0066100000O4FcDAAV,36.1460714,-115.1979708
+33,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4219 Via Olivero Ave,Las Vegas,Nevada,89102-3798,United States,,,0066100000O4O6lAAF,36.1462996,-115.1980171
+34,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4201 Via Olivero Ave,Las Vegas,Nevada,89102-3798,United States,,,0064N00000YVP6IQAX,36.1462876,-115.1971834
+35,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4116 Via Olivero Ave,Las Vegas,Nevada,89102-3709,United States,,,0066100000NSj5RAAT,36.1466905,-115.1966276
+36,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4216 Via Olivero Ave,Las Vegas,Nevada,89102-3700,United States,,,0066100000NoCzKAAV,36.1467595,-115.1977392
+37,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4220 Via Olivero Ave,Las Vegas,Nevada,89102-3700,United States,,,0066100000NoGKsAAN,36.1467473,-115.1979708
+38,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4304 Via Olivero Ave,Las Vegas,Nevada,89102-3797,United States,,,0066100000NSJ9EAAX,36.1467732,-115.1983876
+39,CURRENT RESIDENT | Re-loop: No Answer |  |  | Spoke to Shana uses cox. Sister is dm. Look for a car in driveway,,4305 El Camino Ave,Las Vegas,Nevada,89102-3624,United States,,,0064N00000XxrQXQAZ,36.1469866,-115.1984108
+40,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4221 El Camino Ave,Las Vegas,Nevada,89102-3743,United States,,,0066100000NoGL9AAN,36.1469859,-115.1979708
+41,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4217 El Camino Ave,Las Vegas,Nevada,89102-3743,United States,,,0066100000NoCzZAAV,36.146998,-115.1977392
+42,"CURRENT RESIDENT | Priority Re-loop | Priority Re-loop |  | Spoke to Vanessa, husband takes care of cellphone bi",,4201 El Camino Ave,Las Vegas,Nevada,89102-3743,United States,,,0066100000No5itAAB,36.1469964,-115.1968592
+43,"CURRENT RESIDENT | Re-Loop |  |  | Spoke to Jon, wife is dm home after 6pm. Uses T-Mobile 3 lines for 130",,4125 El Camino Ave,Las Vegas,Nevada,89102-3740,United States,,,0066100000OLPy0AAH,36.1469584,-115.1966739
+44,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4119 El Camino Ave,Las Vegas,Nevada,89102-3740,United States,,,0066100000NSj6zAAD,36.146891,-115.1964423
+45,4117 El Camino Ave Las Vegas NV  Resident | Re-loop: No Answer |  |  |,,4117 El Camino Ave,Las Vegas,Nevada,89102-3740,United States,,,006Qi00000eysBkIAI,36.146797,-115.196335
+46,Daisy Soliz | Re-loop: No Answer |  |  |,,4113 El Camino Ave,Las Vegas,Nevada,89102-3740,United States,,,0066100000NShU6AAL,36.1466854,-115.1961181
+47,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4109 El Camino Ave,Las Vegas,Nevada,89102-3740,United States,,,0066100000O4BmkAAF,36.1466076,-115.1959329
+48,"Roana  Sibely | Priority Re-loop | Priority Re-loop |  | Pays $234 with cox, pays $236 5 lines T-Mobile. Stop by",,4009 El Camino Ave,Las Vegas,Nevada,89102,United States,,,0066100000NoLzZAAV,36.1463019,-115.194636
+49,Janyce Sibley | Re-loop: No Answer |  |  |,,4005 El Camino Ave,Las Vegas,Nevada,89102-3601,United States,,,0066100000NoLwyAAF,36.1462638,-115.1944508
+50,Teddy Lin | Re-loop: No Answer |  |  |,,4001 El Camino Ave,Las Vegas,Nevada,89102,United States,,,0066100000NoKO6AAN,36.1462552,-115.1943118
+51,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4325 San Angelo Ave,Las Vegas,Nevada,89102-0619,United States,,,0066100000NSSrcAAH,36.1417633,-115.1994529
+52,CURRENT RESIDENT | Re-Loop |  |  | Has been taken care of look for a blue car next to the black truck using boos,,4309 San Angelo Ave,Las Vegas,Nevada,89102-0619,United States,,,0066100000NSL1IAAX,36.1417911,-115.1986192
+53,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4213 San Angelo Ave,Las Vegas,Nevada,89102-0618,United States,,,0066100000NoCxMAAV,36.1417912,-115.1975539
+54,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4205 San Angelo Ave,Las Vegas,Nevada,89102-0618,United States,,,0066100000No8CMAAZ,36.1417654,-115.1971371
+55,"CURRENT RESIDENT | Priority Re-loop | Priority Re-loop |  | Spoke to rephael, uses cox. Pays $70 says wife got a",,4300 San Angelo Ave,Las Vegas,Nevada,89102-0617,United States,,,0066100000NSHV9AAP,36.1422423,-115.1982023
+56,"CURRENT RESIDENT | Re-loop: No Answer |  |  | Spoke to Celeste, minor slow downs. Look for an orange truck that’",,4316 San Angelo Ave,Las Vegas,Nevada,89102-0617,United States,,,0066100000NSONLAA5,36.1422439,-115.1990823
+57,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4325 El Conlon Ave,Las Vegas,Nevada,89102-5724,United States,,,0066100000NSSr7AAH,36.1425481,-115.1994992
+58,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,4201 El Conlon Ave,Las Vegas,Nevada,89102-0623,United States,,,0066100000No5ivAAB,36.1424846,-115.1967666
+59,CURRENT RESIDENT | Re-loop: No Answer |  |  |,,2537 Lenna St,Las Vegas,Nevada,89102-5728,United States,,,0066100000NSSvkAAH,36.1425762,-115.196535

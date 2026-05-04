@@ -1,0 +1,25 @@
+{
+  "run_id": "20260504-092406-step-the-fuck-up-a0oqi000008cvnvmas-csv",
+  "upload_name": "STEP_THE_FUCK_UP__a0OQi000008CvnVMAS.csv",
+  "saved_at": "2026-05-04T09:49:54",
+  "settings": {
+    "min_stops": 45,
+    "max_stops": 75,
+    "target_stops": 60,
+    "first_side": "auto",
+    "street_order": "name",
+    "block_size": 100,
+    "use_block_segments": true,
+    "use_side_segments": true
+  },
+  "notes": "Up to Stops 46 this route was changed to be optimized. 1319 Deforest Rd was the next logical stop but is contained within the street segment. Logically we want to walk reverse path to 1307 Deforest then cross over to 1282 Deforest Rd then 1286 Deforest Rd through 1334 Deforest Rd then 1328 cross up to 1399 Deforest Rd up to 3929 Boston Ave and finish closest to our starting point at 3831 Boston Ave",
+  "summary": {
+    "segment_count": 40,
+    "changed_segment_count": 39,
+    "order_change_count": 38,
+    "direction_change_count": 4,
+    "stop_range_change_count": 39,
+    "initial_stop_count": 70,
+    "corrected_stop_count": 70
+  }
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "a0OQi000008CzXlMAK",
+    "name": "New Route",
+    "stops": 54,
+    "file": "New_Route__a0OQi000008CzXlMAK.csv"
+  },
+  {
+    "id": "a0OQi000008CzUXMA0",
+    "name": "New Route",
+    "stops": 59,
+    "file": "New_Route__a0OQi000008CzUXMA0.csv"
+  },
+  {
+    "id": "a0OQi000008CzMTMA0",
+    "name": "Saturday \ud83d\udd25\ud83d\udcaf\ud83d\udcc8",
+    "stops": 54,
+    "file": "Saturday__a0OQi000008CzMTMA0.csv"
+  },
+  {
+    "id": "a0OQi000008Cya5MAC",
+    "name": "Route 5",
+    "stops": 54,
+    "file": "Route_5__a0OQi000008Cya5MAC.csv"
+  },
+  {
+    "id": "a0OQi000008CyBtMAK",
+    "name": "New Route",
+    "stops": 54,
+    "file": "New_Route__a0OQi000008CyBtMAK.csv"
+  },
+  {
+    "id": "a0OQi000008Cy0bMAC",
+    "name": "Rich 3",
+    "stops": 72,
+    "file": "Rich_3__a0OQi000008Cy0bMAC.csv"
+  },
+  {
+    "id": "a0OQi000008CxyzMAC",
+    "name": "Saturday chicken day",
+    "stops": 52,
+    "file": "Saturday_chicken_day__a0OQi000008CxyzMAC.csv"
+  },
+  {
+    "id": "a0OQi000008CxxNMAS",
+    "name": "ITATI DOMINATES SATURDAY \ud83d\udc45\ud83e\udde0\ud83e\udec2",
+    "stops": 65,
+    "file": "ITATI_DOMINATES_SATURDAY__a0OQi000008CxxNMAS.csv"
+  },
+  {
+    "id": "a0OQi000008CxqvMAC",
+    "name": "JohnnyBMonday",
+    "stops": 64,
+    "file": "JohnnyBMonday__a0OQi000008CxqvMAC.csv"
+  },
+  {
+    "id": "a0OQi000008CxpJMAS",
+    "name": "New Route",
+    "stops": 65,
+    "file": "New_Route__a0OQi000008CxpJMAS.csv"
+  },
+  {
+    "id": "a0OQi000008CxR7MAK",
+    "name": "WWBWD SAT",
+    "stops": 68,
+    "file": "WWBWD_SAT__a0OQi000008CxR7MAK.csv"
+  },
+  {
+    "id": "a0OQi000008CxHRMA0",
+    "name": "Saturday Comeback Szn \ud83e\udd89",
+    "stops": 65,
+    "file": "Saturday_Comeback_Szn__a0OQi000008CxHRMA0.csv"
+  },
+  {
+    "id": "a0OQi000008Cwd7MAC",
+    "name": "Loop 3",
+    "stops": 59,
+    "file": "Loop_3__a0OQi000008Cwd7MAC.csv"
+  },
+  {
+    "id": "a0OQi000008CwZtMAK",
+    "name": "McCall a route 2",
+    "stops": 58,
+    "file": "McCall_a_route_2__a0OQi000008CwZtMAK.csv"
+  },
+  {
+    "id": "a0OQi000008CvnVMAS",
+    "name": "STEP THE FUCK UP",
+    "stops": 70,
+    "file": "STEP_THE_FUCK_UP__a0OQi000008CvnVMAS.csv"
+  },
+  {
+    "id": "a0OQi000008Cu3RMAS",
+    "name": "Maywood",
+    "stops": 72,
+    "file": "Maywood__a0OQi000008Cu3RMAS.csv"
+  },
+  {
+    "id": "a0OQi000008CtwzMAC",
+    "name": "New Route 5/1/26",
+    "stops": 79,
+    "file": "New_Route_5_1_26__a0OQi000008CtwzMAC.csv"
+  },
+  {
+    "id": "a0OQi000008CtfFMAS",
+    "name": "Ext Shak and Leo $$$$",
+    "stops": 60,
+    "file": "Ext_Shak_and_Leo__a0OQi000008CtfFMAS.csv"
+  }
+]
