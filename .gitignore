@@ -5,8 +5,21 @@ __pycache__/
 .Python
 .venv/
 venv/
+# Local / secret env files (templates like .env.example stay tracked)
 .env
-.env.*
+.env.local
+.env.*.local
+
+# Node / frontend
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+.vercel
+
+# Supabase CLI local cache
+**/supabase/.temp/
 
 # OS / editor
 .DS_Store
