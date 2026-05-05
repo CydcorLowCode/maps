@@ -210,3 +210,67 @@ class GeocodeResult(BaseModel):
 class GeocodeResponse(BaseModel):
     provider: str
     results: List[GeocodeResult]
+
+
+class LassoWaypoint(BaseModel):
+    lat: float
+    lng: float
+    label: Optional[str] = None
+
+
+class LassoRouteRequest(BaseModel):
+    start: LassoWaypoint
+    end: Optional[LassoWaypoint] = None
+    opportunities: List[OpportunityPin]
+    round_trip: bool = False
+
+
+class LassoStop(BaseModel):
+    stop_number: int
+    kind: Literal["start", "opportunity", "end"]
+    opportunity_id: Optional[str] = None
+    label: Optional[str] = None
+    street: Optional[str] = None
+    city: Optional[str] = None
+    lat: float
+    lng: float
+
+
+class LassoLeg(BaseModel):
+    from_stop: int
+    to_stop: int
+    distance_m: float
+    duration_s: float
+
+
+class LassoRouteResponse(BaseModel):
+    stops: List[LassoStop]
+    legs: List[LassoLeg]
+    total_distance_m: float
+    total_duration_s: float
+    polyline: Optional[str] = None
+    provider: str
+    profile: str
+
+
+class GeopointeRouteStop(BaseModel):
+    stop_number: int
+    opportunity_id: Optional[str] = None
+    label: Optional[str] = None
+    street: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    postal_code: Optional[str] = None
+    lat: float
+    lng: float
+
+
+class GeopointeRoute(BaseModel):
+    id: str
+    name: Optional[str] = None
+    route_date: Optional[str] = None
+    route_type: Optional[str] = None
+    number_of_stops: Optional[int] = None
+    total_distance_mi: Optional[float] = None
+    last_modified: Optional[str] = None
+    stops: List[GeopointeRouteStop]

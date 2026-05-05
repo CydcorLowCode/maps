@@ -162,3 +162,67 @@ export type ProvidersStatus = {
   google: boolean;
   ors: boolean;
 };
+
+export type LassoWaypoint = {
+  lat: number;
+  lng: number;
+  label?: string | null;
+};
+
+export type LassoRouteRequest = {
+  start: LassoWaypoint;
+  end?: LassoWaypoint | null;
+  opportunities: OpportunityPin[];
+  round_trip?: boolean;
+};
+
+export type LassoStop = {
+  stop_number: number;
+  kind: "start" | "opportunity" | "end";
+  opportunity_id?: string | null;
+  label?: string | null;
+  street?: string | null;
+  city?: string | null;
+  lat: number;
+  lng: number;
+};
+
+export type LassoLeg = {
+  from_stop: number;
+  to_stop: number;
+  distance_m: number;
+  duration_s: number;
+};
+
+export type LassoRouteResponse = {
+  stops: LassoStop[];
+  legs: LassoLeg[];
+  total_distance_m: number;
+  total_duration_s: number;
+  polyline?: string | null;
+  provider: string;
+  profile: string;
+};
+
+export type GeopointeRouteStop = {
+  stop_number: number;
+  opportunity_id?: string | null;
+  label?: string | null;
+  street?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postal_code?: string | null;
+  lat: number;
+  lng: number;
+};
+
+export type GeopointeRoute = {
+  id: string;
+  name?: string | null;
+  route_date?: string | null;
+  route_type?: string | null;
+  number_of_stops?: number | null;
+  total_distance_mi?: number | null;
+  last_modified?: string | null;
+  stops: GeopointeRouteStop[];
+};

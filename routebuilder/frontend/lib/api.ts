@@ -2,6 +2,9 @@ import type {
   AutoRouteResponse,
   GeocodeRequest,
   GeocodeResponse,
+  GeopointeRoute,
+  LassoRouteRequest,
+  LassoRouteResponse,
   OpportunityPin,
   ProvidersStatus,
   RepRow,
@@ -58,6 +61,19 @@ export async function fetchOpportunities(ownerId: string): Promise<OpportunityPi
   return request<OpportunityPin[]>(`/api/reps/${ownerId}/opportunities`);
 }
 
+export async function fetchGeopointeRoutes(
+  ownerId: string,
+  opts: { days?: number; limit?: number } = {},
+): Promise<GeopointeRoute[]> {
+  if (isDemoMode()) return [];
+  const params = new URLSearchParams();
+  if (opts.days != null) params.set("days", String(opts.days));
+  if (opts.limit != null) params.set("limit", String(opts.limit));
+  const qs = params.toString();
+  const path = `/api/reps/${ownerId}/geopointe-routes${qs ? `?${qs}` : ""}`;
+  return request<GeopointeRoute[]>(path);
+}
+
 export async function buildAutoRoute(payload: {
   owner_id: string;
   opportunities: OpportunityPin[];
@@ -70,6 +86,13 @@ export async function buildAutoRoute(payload: {
 }): Promise<AutoRouteResponse> {
   if (isDemoMode()) return DEMO_AUTO_ROUTE;
   return request<AutoRouteResponse>("/api/routes/auto", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function buildLassoRoute(payload: LassoRouteRequest): Promise<LassoRouteResponse> {
+  return request<LassoRouteResponse>("/api/routes/lasso", {
     method: "POST",
     body: JSON.stringify(payload),
   });

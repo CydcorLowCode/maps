@@ -25,11 +25,33 @@ export type GeocodedPoint = {
   originalLng: number;
 };
 
+export type OverlayRouteStop = {
+  stopNumber: number;
+  lat: number;
+  lng: number;
+  label?: string | null;
+};
+
 export type OverlayRoute = {
   id: string;
   color: string;
   coords: [number, number][];
   label?: string;
+  stops?: OverlayRouteStop[];
+};
+
+export type LassoRouteMarker = {
+  stopNumber: number;
+  kind: "start" | "opportunity" | "end";
+  lat: number;
+  lng: number;
+  label?: string | null;
+};
+
+export type LassoRouteOverlay = {
+  polyline: [number, number][];
+  markers: LassoRouteMarker[];
+  color?: string;
 };
 
 type Props = {
@@ -41,6 +63,8 @@ type Props = {
   zones?: MapZone[];
   geocoded?: GeocodedPoint[];
   overlayRoutes?: OverlayRoute[];
+  lassoRoute?: LassoRouteOverlay | null;
+  highlightedPinIds?: Set<string> | null;
   className?: string;
   onMapReady?: (map: L.Map, container: HTMLDivElement) => void;
 };
@@ -95,6 +119,8 @@ export default function RouteMap({
   zones,
   geocoded,
   overlayRoutes,
+  lassoRoute,
+  highlightedPinIds,
   className,
   onMapReady,
 }: Props) {
@@ -103,8 +129,10 @@ export default function RouteMap({
   const markersLayer = useRef<L.LayerGroup | null>(null);
   const linesLayer = useRef<L.LayerGroup | null>(null);
   const overlayLayer = useRef<L.LayerGroup | null>(null);
+  const overlayStopsLayer = useRef<L.LayerGroup | null>(null);
   const zonesLayer = useRef<L.LayerGroup | null>(null);
   const geocodedLayer = useRef<L.LayerGroup | null>(null);
+  const lassoRouteLayer = useRef<L.LayerGroup | null>(null);
 
   const stopByOppId = useMemo(() => {
     const map = new Map<string, { stopNumber: number; color: string; routeNumber: number }>();
@@ -136,8 +164,12 @@ export default function RouteMap({
     zonesLayer.current = L.layerGroup().addTo(map);
     overlayLayer.current = L.layerGroup().addTo(map);
     linesLayer.current = L.layerGroup().addTo(map);
+    lassoRouteLayer.current = L.layerGroup().addTo(map);
     geocodedLayer.current = L.layerGroup().addTo(map);
     markersLayer.current = L.layerGroup().addTo(map);
+    // Numbered stops for comparison-mode overlay routes — added last so the
+    // badges sit above the rep's regular opportunity pins.
+    overlayStopsLayer.current = L.layerGroup().addTo(map);
     mapRef.current = map;
     onMapReady?.(map, containerRef.current);
     return () => {
@@ -155,6 +187,49 @@ export default function RouteMap({
     map.fitBounds(bounds, { padding: [40, 40] });
   }, [pins]);
 
+  // Snap to the active zone when its identity changes (e.g. user picks a
+  // starting pin inside a different zone). Skipped if zones don't change
+  // selection — re-renders that only flip dim/active flags shouldn't re-fit.
+  const lastActiveZoneIdRef = useRef<string | null>(null);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const active = zones?.find((z) => z.active) ?? null;
+    const id = active ? active.id : null;
+    if (id === lastActiveZoneIdRef.current) return;
+    lastActiveZoneIdRef.current = id;
+    if (!active || active.polygon.length < 2) return;
+    map.fitBounds(L.latLngBounds(active.polygon), {
+      padding: [60, 60],
+      maxZoom: 17,
+    });
+  }, [zones]);
+
+  // Snap to the visible overlay routes when the set of visible route ids
+  // changes. We fit the union of every visible route's stops/coords.
+  const lastOverlayKeyRef = useRef<string>("");
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const ids = (overlayRoutes ?? [])
+      .map((r) => r.id)
+      .sort()
+      .join(",");
+    if (ids === lastOverlayKeyRef.current) return;
+    lastOverlayKeyRef.current = ids;
+    if (!overlayRoutes || overlayRoutes.length === 0) return;
+    const points: [number, number][] = [];
+    for (const r of overlayRoutes) {
+      for (const c of r.coords) points.push(c);
+      if (r.stops) for (const s of r.stops) points.push([s.lat, s.lng]);
+    }
+    if (points.length === 0) return;
+    map.fitBounds(L.latLngBounds(points), {
+      padding: [60, 60],
+      maxZoom: 17,
+    });
+  }, [overlayRoutes]);
+
   // Render markers.
   const routeActive = Boolean(autoRoute) || Boolean(drawnOrder && drawnOrder.length);
   useEffect(() => {
@@ -164,11 +239,14 @@ export default function RouteMap({
     for (const pin of pins) {
       const stop = stopByOppId.get(pin.id);
       const isStart = pin.id === startingId && !stop;
+      const highlighted = highlightedPinIds?.has(pin.id) ?? false;
+      const dim = highlightedPinIds && !highlighted && !stop && !isStart;
+      const extraClass = highlighted ? " highlighted" : dim ? " dimmed" : "";
       const html = stop
-        ? `<div class="route-pin routed" style="background:${stop.color}">${stop.stopNumber}</div>`
+        ? `<div class="route-pin routed${extraClass}" style="background:${stop.color}">${stop.stopNumber}</div>`
         : isStart
-          ? `<div class="route-pin starting"></div>`
-          : `<div class="route-pin"></div>`;
+          ? `<div class="route-pin starting${extraClass}"></div>`
+          : `<div class="route-pin${extraClass}"></div>`;
       const icon = L.divIcon({ className: "", html, iconSize: [28, 28], iconAnchor: [14, 14] });
       const marker = L.marker([pin.lat, pin.lng], { icon, riseOnHover: true });
       if (routeActive) {
@@ -185,7 +263,7 @@ export default function RouteMap({
       const el = marker.getElement() as HTMLElement | null;
       if (el) el.dataset.pinId = pin.id;
     }
-  }, [pins, startingId, stopByOppId, onPinClick, routeActive]);
+  }, [pins, startingId, stopByOppId, onPinClick, routeActive, highlightedPinIds]);
 
   // Render cluster zone polygons.
   useEffect(() => {
@@ -250,39 +328,117 @@ export default function RouteMap({
     }
   }, [autoRoute, drawnOrder, pins]);
 
-  // Render comparison-mode overlay routes (one polyline per saved route, no
-  // numbered stop markers — those would clash when several routes overlap).
+  // Render comparison-mode overlay routes. Polylines + start/end caps live on
+  // overlayLayer (below the rep's pins). Numbered stop markers, when provided,
+  // render on overlayStopsLayer above the pins so the order is readable.
   useEffect(() => {
-    const layer = overlayLayer.current;
-    if (!layer) return;
-    layer.clearLayers();
+    const lineLayer = overlayLayer.current;
+    const stopsLayer = overlayStopsLayer.current;
+    if (!lineLayer || !stopsLayer) return;
+    lineLayer.clearLayers();
+    stopsLayer.clearLayers();
     if (!overlayRoutes || overlayRoutes.length === 0) return;
     for (const r of overlayRoutes) {
-      if (r.coords.length < 2) continue;
-      L.polyline(r.coords, {
-        color: r.color,
-        weight: 4,
-        opacity: 0.85,
-        interactive: false,
-      }).addTo(layer);
-      const start = r.coords[0];
-      const end = r.coords[r.coords.length - 1];
-      L.circleMarker(start, {
-        radius: 5,
-        color: r.color,
-        weight: 2,
-        fillColor: "#ffffff",
-        fillOpacity: 1,
-      }).addTo(layer);
-      L.circleMarker(end, {
-        radius: 5,
-        color: r.color,
-        weight: 2,
-        fillColor: r.color,
-        fillOpacity: 1,
-      }).addTo(layer);
+      if (r.coords.length >= 2) {
+        L.polyline(r.coords, {
+          color: r.color,
+          weight: 4,
+          opacity: 0.85,
+          interactive: false,
+        }).addTo(lineLayer);
+      }
+      if (r.coords.length > 0) {
+        const start = r.coords[0];
+        const end = r.coords[r.coords.length - 1];
+        L.circleMarker(start, {
+          radius: 5,
+          color: r.color,
+          weight: 2,
+          fillColor: "#ffffff",
+          fillOpacity: 1,
+        }).addTo(lineLayer);
+        L.circleMarker(end, {
+          radius: 5,
+          color: r.color,
+          weight: 2,
+          fillColor: r.color,
+          fillOpacity: 1,
+        }).addTo(lineLayer);
+      }
+      if (r.stops && r.stops.length > 0) {
+        for (const s of r.stops) {
+          const html = `<div class="route-pin routed overlay-stop" style="background:${r.color}">${s.stopNumber}</div>`;
+          const icon = L.divIcon({
+            className: "",
+            html,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12],
+          });
+          const marker = L.marker([s.lat, s.lng], { icon, riseOnHover: true });
+          const titleParts = [r.label, `Stop ${s.stopNumber}`].filter(Boolean) as string[];
+          const popupHtml = `
+            <div class="pin-popup">
+              <div class="popup-stop"><span class="popup-dot" style="background:${r.color}"></span>${escapeHtml(titleParts.join(" · "))}</div>
+              ${s.label ? `<div class="popup-title">${escapeHtml(s.label)}</div>` : ""}
+            </div>
+          `;
+          marker.bindPopup(popupHtml, {
+            closeButton: true,
+            autoPan: true,
+            maxWidth: 240,
+            className: "pin-popup-wrapper",
+          });
+          marker.addTo(stopsLayer);
+        }
+      }
     }
   }, [overlayRoutes]);
+
+  // Render the lasso (walking) route — encoded polyline + numbered stops with
+  // start/end caps. Drawn underneath markers but above the auto-route lines.
+  useEffect(() => {
+    const layer = lassoRouteLayer.current;
+    if (!layer) return;
+    layer.clearLayers();
+    if (!lassoRoute) return;
+    const color = lassoRoute.color || "#0ea5e9";
+    if (lassoRoute.polyline.length >= 2) {
+      L.polyline(lassoRoute.polyline, {
+        color,
+        weight: 5,
+        opacity: 0.92,
+        interactive: false,
+      }).addTo(layer);
+    }
+    for (const m of lassoRoute.markers) {
+      const labelHtml = escapeHtml(m.label || "");
+      let html: string;
+      if (m.kind === "start") {
+        html = `<div class="lasso-cap start" style="background:${color}">A</div>`;
+      } else if (m.kind === "end") {
+        html = `<div class="lasso-cap end" style="border-color:${color};color:${color}">B</div>`;
+      } else {
+        html = `<div class="route-pin routed" style="background:${color}">${m.stopNumber}</div>`;
+      }
+      const icon = L.divIcon({
+        className: "",
+        html,
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
+      });
+      const marker = L.marker([m.lat, m.lng], { icon, riseOnHover: true });
+      const tooltip = `<div class="pin-popup"><div class="popup-title">${
+        m.kind === "start" ? "Start" : m.kind === "end" ? "End" : `Stop ${m.stopNumber}`
+      }</div>${labelHtml ? `<div class="popup-address"><div>${labelHtml}</div></div>` : ""}</div>`;
+      marker.bindPopup(tooltip, {
+        closeButton: true,
+        autoPan: true,
+        maxWidth: 240,
+        className: "pin-popup-wrapper",
+      });
+      marker.addTo(layer);
+    }
+  }, [lassoRoute]);
 
   // Render geocoded points + leader lines from the original pin location.
   useEffect(() => {

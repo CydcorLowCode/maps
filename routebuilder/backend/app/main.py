@@ -8,12 +8,15 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import geocoding, salesforce, storage
+from . import geocoding, routing, salesforce, storage
 from .models import (
     AutoRouteRequest,
     AutoRouteResponse,
     GeocodeRequest,
     GeocodeResponse,
+    GeopointeRoute,
+    LassoRouteRequest,
+    LassoRouteResponse,
     OpportunityPin,
     RepRow,
     SaveRouteRequest,
@@ -80,6 +83,27 @@ def get_opportunities(owner_id: str) -> List[OpportunityPin]:
         raise HTTPException(status_code=502, detail=f"Salesforce query failed: {exc}") from exc
 
 
+@app.get(
+    "/api/reps/{owner_id}/geopointe-routes",
+    response_model=List[GeopointeRoute],
+)
+def get_geopointe_routes(
+    owner_id: str,
+    days: int = Query(default=30, ge=1, le=365),
+    limit: int = Query(default=10, ge=1, le=50),
+) -> List[GeopointeRoute]:
+    if not re.match(r"^[A-Za-z0-9]{15,18}$", owner_id):
+        raise HTTPException(status_code=400, detail="Invalid Salesforce owner_id")
+    try:
+        return salesforce.query_geopointe_routes_for_owner(
+            owner_id, days=days, limit=limit
+        )
+    except salesforce.SalesforceAuthError as exc:
+        raise HTTPException(status_code=502, detail=f"Salesforce auth failed: {exc}") from exc
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=502, detail=f"Salesforce query failed: {exc}") from exc
+
+
 @app.post("/api/routes/auto", response_model=AutoRouteResponse)
 def post_auto_route(request: AutoRouteRequest) -> AutoRouteResponse:
     if not request.opportunities:
@@ -88,6 +112,18 @@ def post_auto_route(request: AutoRouteRequest) -> AutoRouteResponse:
         return build_auto_route(request)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/api/routes/lasso", response_model=LassoRouteResponse)
+async def post_lasso_route(request: LassoRouteRequest) -> LassoRouteResponse:
+    if not request.opportunities:
+        raise HTTPException(status_code=400, detail="opportunities cannot be empty")
+    try:
+        return await routing.build_lasso_route(request)
+    except routing.LassoRoutingConfigError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except routing.LassoRoutingError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
 @app.post("/api/routes/save", response_model=SaveRouteResponse)

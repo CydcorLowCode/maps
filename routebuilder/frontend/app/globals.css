@@ -82,6 +82,43 @@ button {
   border-color: #1c1917;
 }
 
+.route-pin.highlighted {
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.55), 0 1px 2px rgba(28, 25, 23, 0.18);
+}
+
+.route-pin.dimmed {
+  opacity: 0.28;
+}
+
+.route-pin.overlay-stop {
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
+  border-width: 2px;
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(28, 25, 23, 0.45), 0 1px 2px rgba(28, 25, 23, 0.18);
+}
+
+.lasso-cap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px;
+  border: 2px solid #1c1917;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(28, 25, 23, 0.22);
+  transform: translate(-50%, -50%);
+}
+.lasso-cap.end {
+  background: #ffffff;
+  border-width: 3px;
+}
+
 .draw-cursor.snap {
   background: rgba(217, 79, 44, 0.28) !important;
   border-color: var(--accent) !important;

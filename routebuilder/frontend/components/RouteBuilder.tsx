@@ -9,7 +9,9 @@ import type LType from "leaflet";
 import {
   applySnapshotCorrections,
   buildAutoRoute,
+  buildLassoRoute,
   fetchGeocodeProviders,
+  fetchGeopointeRoutes,
   geocodeAddresses,
   saveRoute,
   saveSnapshot,
@@ -19,10 +21,13 @@ import {
 import type {
   AutoRouteResponse,
   GeocodeProvider,
+  GeopointeRoute,
+  LassoRouteResponse,
   OpportunityPin,
   OrderedStop,
   RoutePayload,
 } from "@/lib/types";
+import { decodePolyline } from "@/lib/polyline";
 import {
   applySegmentEdits,
   clearSplits,
@@ -39,16 +44,26 @@ import { clusterByGap } from "@/lib/clustering";
 import { convexHull, expandHull, type LatLng } from "@/lib/hull";
 import { splitInto2 } from "@/lib/kmeans";
 import { applyRouteColors } from "@/lib/routeColors";
-import type { GeocodedPoint, MapZone } from "@/components/Map";
+import type {
+  GeocodedPoint,
+  LassoRouteOverlay,
+  MapZone,
+  OverlayRoute,
+} from "@/components/Map";
+import type { ZoneEditorMode } from "@/components/ZoneEditor";
+import type { LassoRoutePhase } from "@/components/LassoRouteMode";
 import RouteSidebar from "@/components/RouteSidebar";
-import DrawMode from "@/components/DrawMode";
-import ZoneEditor, { type ZoneEditorMode } from "@/components/ZoneEditor";
 import BuildSettings, {
   DEFAULT_BUILD_SETTINGS,
   type BuildSettingsValues,
 } from "@/components/BuildSettings";
 
 const RouteMap = dynamic(() => import("@/components/Map"), { ssr: false });
+const DrawMode = dynamic(() => import("@/components/DrawMode"), { ssr: false });
+const ZoneEditor = dynamic(() => import("@/components/ZoneEditor"), { ssr: false });
+const LassoRouteMode = dynamic(() => import("@/components/LassoRouteMode"), {
+  ssr: false,
+});
 
 const ZONE_COLORS = ["#1f77b4", "#d94f2c", "#2ca02c", "#9467bd", "#8c564b", "#17becf", "#bcbd22"];
 
@@ -114,6 +129,14 @@ export default function RouteBuilder({
     initialZoneNotes ?? {},
   );
 
+  const [lassoPhase, setLassoPhase] = useState<LassoRoutePhase | null>(null);
+  const [lassoSelectedIds, setLassoSelectedIds] = useState<string[]>([]);
+  const [lassoStartId, setLassoStartId] = useState<string | null>(null);
+  const [lassoEndId, setLassoEndId] = useState<string | null>(null);
+  const [lassoRoundTrip, setLassoRoundTrip] = useState(false);
+  const [lassoResult, setLassoResult] = useState<LassoRouteResponse | null>(null);
+  const [lassoError, setLassoError] = useState<string | null>(null);
+
   const [geocodeProvider, setGeocodeProvider] = useState<GeocodeProvider>("google");
   const [geocodedByZone, setGeocodedByZone] = useState<Record<string, GeocodedPoint[]>>({});
   const [geocodePendingZone, setGeocodePendingZone] = useState<string | null>(null);
@@ -128,6 +151,83 @@ export default function RouteBuilder({
     queryFn: fetchGeocodeProviders,
     staleTime: 60_000,
   });
+
+  // Geopointe routes the rep currently has in Salesforce — surfaced so the
+  // owner can see how the rep is working their assignments today. Only
+  // fetched in live mode (snapshots are detached from the rep's current SF
+  // state by design).
+  const [geopointePanelOpen, setGeopointePanelOpen] = useState(false);
+  const [visibleGeopointeIds, setVisibleGeopointeIds] = useState<Set<string>>(
+    () => new Set(),
+  );
+  const { data: geopointeRoutes = [] } = useQuery<GeopointeRoute[]>({
+    queryKey: ["geopointe-routes", repOwnerId],
+    queryFn: () => fetchGeopointeRoutes(repOwnerId),
+    enabled: Boolean(repOwnerId),
+    staleTime: 5 * 60_000,
+  });
+
+  const GEOPOINTE_PALETTE = useMemo(
+    () => ["#0f766e", "#7c3aed", "#b45309", "#be185d", "#15803d", "#0369a1"],
+    [],
+  );
+
+  const geopointeColorById = useMemo(() => {
+    const m = new Map<string, string>();
+    geopointeRoutes.forEach((r, i) => {
+      m.set(r.id, GEOPOINTE_PALETTE[i % GEOPOINTE_PALETTE.length]);
+    });
+    return m;
+  }, [geopointeRoutes, GEOPOINTE_PALETTE]);
+
+  const geopointeOverlay = useMemo<OverlayRoute[]>(() => {
+    if (visibleGeopointeIds.size === 0) return [];
+    return geopointeRoutes
+      .filter((r) => visibleGeopointeIds.has(r.id) && r.stops.length >= 1)
+      .map((r) => ({
+        id: r.id,
+        color: geopointeColorById.get(r.id) ?? "#0f766e",
+        coords: r.stops.map((s) => [s.lat, s.lng] as [number, number]),
+        label: r.name ?? undefined,
+        stops: r.stops.map((s) => ({
+          stopNumber: s.stop_number,
+          lat: s.lat,
+          lng: s.lng,
+          label: s.label ?? s.street ?? null,
+        })),
+      }));
+  }, [visibleGeopointeIds, geopointeRoutes, geopointeColorById]);
+
+  const toggleGeopointeRoute = useCallback((id: string) => {
+    setVisibleGeopointeIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const showAllGeopointe = useCallback(() => {
+    setVisibleGeopointeIds(new Set(geopointeRoutes.map((r) => r.id)));
+  }, [geopointeRoutes]);
+
+  const hideAllGeopointe = useCallback(() => {
+    setVisibleGeopointeIds(new Set());
+  }, []);
+
+  // If the route list changes (e.g. rep refreshed), drop any visibility entries
+  // that no longer correspond to a real route.
+  useEffect(() => {
+    if (visibleGeopointeIds.size === 0) return;
+    const valid = new Set(geopointeRoutes.map((r) => r.id));
+    let changed = false;
+    const next = new Set<string>();
+    for (const id of visibleGeopointeIds) {
+      if (valid.has(id)) next.add(id);
+      else changed = true;
+    }
+    if (changed) setVisibleGeopointeIds(next);
+  }, [geopointeRoutes, visibleGeopointeIds]);
 
   // In snapshot mode, debounce-save zone overrides back to the snapshot.
   const lastPersistedRef = useRef<string>("");
@@ -608,6 +708,99 @@ export default function RouteBuilder({
     [zoneIndex.zones, pins, startingId, buildMutation],
   );
 
+  const lassoMutation = useMutation({
+    mutationFn: () => {
+      if (!lassoStartId) throw new Error("Pick a starting pin");
+      const pinById = new Map(pins.map((p) => [p.id, p]));
+      const startPin = pinById.get(lassoStartId);
+      if (!startPin) throw new Error("Starting pin not found");
+      const endPin = lassoRoundTrip
+        ? startPin
+        : lassoEndId
+          ? pinById.get(lassoEndId)
+          : null;
+      if (!endPin) throw new Error("Pick an ending pin or check round trip");
+      const opportunities = lassoSelectedIds
+        .map((id) => pinById.get(id))
+        .filter((p): p is OpportunityPin => Boolean(p));
+      return buildLassoRoute({
+        start: { lat: startPin.lat, lng: startPin.lng, label: startPin.street },
+        end: { lat: endPin.lat, lng: endPin.lng, label: endPin.street },
+        opportunities,
+        round_trip: lassoRoundTrip,
+      });
+    },
+    onMutate: () => setLassoError(null),
+    onSuccess: (data) => {
+      setLassoResult(data);
+      setLassoPhase("result");
+      setLassoError(null);
+    },
+    onError: (err) => {
+      setLassoError(err instanceof Error ? err.message : String(err));
+    },
+  });
+
+  const startLassoRoute = useCallback(() => {
+    setAutoRoute(null);
+    setSegmentEdits(emptySegmentEdits);
+    setDrawnOrder(null);
+    setStartingId(null);
+    setLassoSelectedIds([]);
+    setLassoStartId(null);
+    setLassoEndId(null);
+    setLassoRoundTrip(false);
+    setLassoResult(null);
+    setLassoError(null);
+    setLassoPhase("lasso");
+  }, []);
+
+  const handleLassoRouteComplete = useCallback((pinIds: string[]) => {
+    setLassoSelectedIds(pinIds);
+    setLassoStartId((prev) => (prev && pinIds.includes(prev) ? prev : pinIds[0] ?? null));
+    setLassoEndId((prev) =>
+      prev && pinIds.includes(prev) ? prev : pinIds[pinIds.length - 1] ?? null,
+    );
+    setLassoPhase(pinIds.length > 0 ? "configure" : "lasso");
+  }, []);
+
+  const handleLassoReset = useCallback(() => {
+    setLassoResult(null);
+    setLassoError(null);
+    setLassoPhase("lasso");
+  }, []);
+
+  const handleLassoCancel = useCallback(() => {
+    setLassoPhase(null);
+    setLassoResult(null);
+    setLassoError(null);
+    setLassoSelectedIds([]);
+    setLassoStartId(null);
+    setLassoEndId(null);
+    setLassoRoundTrip(false);
+  }, []);
+
+  const lassoOverlay = useMemo<LassoRouteOverlay | null>(() => {
+    if (!lassoResult || lassoPhase !== "result") return null;
+    const polyCoords = lassoResult.polyline ? decodePolyline(lassoResult.polyline) : [];
+    return {
+      polyline: polyCoords,
+      color: "#0ea5e9",
+      markers: lassoResult.stops.map((s) => ({
+        stopNumber: s.stop_number,
+        kind: s.kind,
+        lat: s.lat,
+        lng: s.lng,
+        label: s.label ?? s.street ?? null,
+      })),
+    };
+  }, [lassoResult, lassoPhase]);
+
+  const highlightedPinIds = useMemo<Set<string> | null>(() => {
+    if (!lassoPhase || lassoPhase === "result") return null;
+    return new Set(lassoSelectedIds);
+  }, [lassoPhase, lassoSelectedIds]);
+
   const snapshotMutation = useMutation({
     mutationFn: (input: { label: string | null; notes: string | null }) => {
       const correctionByPinId = new Map<string, GeocodedPoint>();
@@ -760,8 +953,38 @@ export default function RouteBuilder({
             >
               Cancel
             </button>
+          ) : lassoPhase ? (
+            <button
+              onClick={handleLassoCancel}
+              className="label px-3 py-2 border hairline hover:bg-black/5"
+            >
+              Exit Walk Route
+            </button>
           ) : (
             <>
+              <button
+                onClick={startLassoRoute}
+                disabled={pins.length === 0}
+                title="Lasso a subset of opportunities and build an optimized walking route"
+                className="label px-3 py-2 border hairline hover:bg-black/5 disabled:opacity-40"
+              >
+                Walk Route
+              </button>
+              {geopointeRoutes.length > 0 && (
+                <button
+                  onClick={() => setGeopointePanelOpen((v) => !v)}
+                  title="Toggle this rep's recent Geopointe routes from Salesforce"
+                  aria-pressed={geopointePanelOpen}
+                  className={
+                    "label px-3 py-2 border hairline hover:bg-black/5 " +
+                    (geopointePanelOpen || visibleGeopointeIds.size > 0
+                      ? "bg-[var(--ink)] text-paper"
+                      : "")
+                  }
+                >
+                  SF Routes ({visibleGeopointeIds.size}/{geopointeRoutes.length})
+                </button>
+              )}
               {mode === "live" && (
                 <button
                   onClick={handleSaveSnapshot}
@@ -821,9 +1044,72 @@ export default function RouteBuilder({
           drawnOrder={drawnOrder}
           zones={mapZones}
           geocoded={allGeocoded}
+          overlayRoutes={geopointeOverlay}
+          lassoRoute={lassoOverlay}
+          highlightedPinIds={highlightedPinIds}
           className="absolute inset-0"
           onMapReady={handleMapReady}
         />
+        {geopointePanelOpen && geopointeRoutes.length > 0 && (
+          <div className="absolute bottom-4 left-4 max-w-[340px] bg-paper/95 border hairline p-3 z-[500] shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <div className="label">Salesforce routes</div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={showAllGeopointe}
+                  className="label px-2 py-1 border hairline hover:bg-black/5 disabled:opacity-40"
+                  disabled={visibleGeopointeIds.size === geopointeRoutes.length}
+                >
+                  All
+                </button>
+                <button
+                  type="button"
+                  onClick={hideAllGeopointe}
+                  className="label px-2 py-1 border hairline hover:bg-black/5 disabled:opacity-40"
+                  disabled={visibleGeopointeIds.size === 0}
+                >
+                  None
+                </button>
+              </div>
+            </div>
+            <ul className="space-y-1">
+              {geopointeRoutes.map((r) => {
+                const color = geopointeColorById.get(r.id) ?? "#0f766e";
+                const visible = visibleGeopointeIds.has(r.id);
+                const date = r.route_date ?? r.last_modified?.slice(0, 10) ?? "—";
+                return (
+                  <li key={r.id}>
+                    <button
+                      type="button"
+                      onClick={() => toggleGeopointeRoute(r.id)}
+                      aria-pressed={visible}
+                      title={visible ? "Hide this route" : "Show this route"}
+                      className={
+                        "w-full flex items-center gap-2 text-sm text-left px-1.5 py-1 border hairline hover:bg-black/5 " +
+                        (visible ? "bg-black/5" : "opacity-70")
+                      }
+                    >
+                      <span
+                        className="inline-block w-3 h-3 rounded-sm shrink-0"
+                        style={{
+                          background: visible ? color : "transparent",
+                          border: `2px solid ${color}`,
+                        }}
+                      />
+                      <span className="truncate flex-1">
+                        {r.name || "Route"}{" "}
+                        <span className="label">
+                          · {date} · {r.stops.length} stops
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
         {drawing && (
           <DrawMode
             pins={drawScopedPins}
@@ -855,6 +1141,28 @@ export default function RouteBuilder({
               />
             );
           })()}
+        {lassoPhase && (
+          <LassoRouteMode
+            pins={pins}
+            map={mapHandles?.map ?? null}
+            mapContainer={mapHandles?.container ?? null}
+            phase={lassoPhase}
+            selectedIds={lassoSelectedIds}
+            startPinId={lassoStartId}
+            endPinId={lassoEndId}
+            roundTrip={lassoRoundTrip}
+            result={lassoResult}
+            isBuilding={lassoMutation.isPending}
+            errorMessage={lassoError}
+            onLassoComplete={handleLassoRouteComplete}
+            onSetStart={setLassoStartId}
+            onSetEnd={setLassoEndId}
+            onSetRoundTrip={setLassoRoundTrip}
+            onBuild={() => lassoMutation.mutate()}
+            onReset={handleLassoReset}
+            onCancel={handleLassoCancel}
+          />
+        )}
         {buildMutation.error instanceof Error && (
           <div className="absolute bottom-4 left-4 right-4 bg-paper border hairline p-3 text-sm z-[500]">
             <div className="label mb-1">Build failed</div>
